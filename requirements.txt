@@ -15,6 +15,7 @@ django-cors-headers
 django-csp
 django-robots
 django-debug-toolbar
+djoser
 
 # deployment module
 gunicorn

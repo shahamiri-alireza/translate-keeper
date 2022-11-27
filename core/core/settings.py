@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     "django.contrib.sitemaps",
     "rest_framework",
     "rest_framework.authtoken",
+    "djoser",
     "django_filters",
     "drf_yasg",
     "corsheaders",

@@ -81,6 +81,8 @@ if settings.SHOW_SWAGGER:
         ),
     ]
 
+api_urlpatterns += [ path("", include('djoser.urls')) ]
+
 # list your api urls here
 urlpatterns += [path('api/', include(api_urlpatterns))]
     
