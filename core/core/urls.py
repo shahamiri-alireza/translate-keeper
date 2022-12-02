@@ -81,7 +81,11 @@ if settings.SHOW_SWAGGER:
         ),
     ]
 
-api_urlpatterns += [ path("", include('djoser.urls')) ]
+api_urlpatterns += [
+    path("", include('djoser.urls')),
+    path("", include('djoser.urls.jwt')),
+    path("", include("keeper.api.v1.urls"))
+]
 
 # list your api urls here
 urlpatterns += [path('api/', include(api_urlpatterns))]
