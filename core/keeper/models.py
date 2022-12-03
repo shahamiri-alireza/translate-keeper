@@ -13,3 +13,14 @@ class Category(models.Model):
 
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
+
+class Word(models.Model):
+    id = models.AutoField(primary_key=True)
+    user = models.ForeignKey(User, null=False, on_delete=models.CASCADE)
+    word = models.CharField(max_length=255, null=False)
+    translate = models.CharField(max_length=255, null=False)
+    description = models.TextField(blank=True, null=True)
+    categories = models.ManyToManyField(Category, blank=True)
+
+    created_date = models.DateTimeField(auto_now_add=True)
+    updated_date = models.DateTimeField(auto_now=True)
