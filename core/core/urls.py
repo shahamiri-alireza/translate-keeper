@@ -59,9 +59,10 @@ if settings.SHOW_DEBUGGER_TOOLBAR:
                     ]
 
 api_urlpatterns = []
+swagger_urlpatterns = []
 
 if settings.SHOW_SWAGGER:
-    api_urlpatterns += [
+    swagger_urlpatterns += [
         path("api-auth/", include("rest_framework.urls",
                                   namespace="rest_framework")),
         path(
@@ -88,7 +89,10 @@ api_urlpatterns += [
 ]
 
 # list your api urls here
-urlpatterns += [path('api/', include(api_urlpatterns))]
+urlpatterns += [
+    path('api/v1/', include(api_urlpatterns)),
+    path('', include(swagger_urlpatterns))
+    ]
     
 
 handler400 = "core.error_views.error_400"  # bad_request
