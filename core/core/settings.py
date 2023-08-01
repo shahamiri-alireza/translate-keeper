@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     "django_filters",
     "drf_yasg",
     "corsheaders",
+    "accounts",
     "keeper"
 ]
 
@@ -171,6 +172,9 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+AUTH_USER_MODEL = "accounts.User"
+AUTH_PROFILE_MODULE = "accounts.User"
 
 # messages configuration for notification handeling in pages
 MESSAGE_TAGS = {

@@ -83,8 +83,9 @@ if settings.SHOW_SWAGGER:
     ]
 
 api_urlpatterns += [
-    path("", include('djoser.urls')),
-    path("", include('djoser.urls.jwt')),
+    # path("", include('djoser.urls')),
+    # path("", include('djoser.urls.jwt')),
+    path("", include("accounts.urls")),
     path("", include("keeper.api.v1.urls"))
 ]
 
