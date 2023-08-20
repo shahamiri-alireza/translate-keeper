@@ -51,15 +51,18 @@ INSTALLED_APPS = [
     "django.contrib.sitemaps",
     "rest_framework",
     "rest_framework.authtoken",
-    "djoser",
+    'dj_rest_auth',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'dj_rest_auth.registration',
+    # "djoser",
     "django_filters",
     "drf_yasg",
     "corsheaders",
-    "accounts",
+    # "accounts",
     "keeper"
 ]
-
-
 
 SITE_ID = config("SITE_ID", cast=int, default=1)
 
@@ -173,8 +176,6 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-AUTH_USER_MODEL = "accounts.User"
-AUTH_PROFILE_MODULE = "accounts.User"
 
 # messages configuration for notification handeling in pages
 MESSAGE_TAGS = {
@@ -233,12 +234,18 @@ REST_FRAMEWORK = {
         "rest_framework.permissions.AllowAny",
     ],
     "DEFAULT_AUTHENTICATION_CLASSES": [
-        "rest_framework_simplejwt.authentication.JWTAuthentication",
+        # "rest_framework_simplejwt.authentication.JWTAuthentication",
         "rest_framework.authentication.TokenAuthentication",
         "rest_framework.authentication.BasicAuthentication",
         "rest_framework.authentication.SessionAuthentication",
+        'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
     ],
 }
+
+REST_AUTH = {
+    'USE_JWT': True,
+}
+
 if config("DISABLE_BROWSEABLE_API", cast=bool, default=False):
     REST_FRAMEWORK["DEFAULT_RENDERER_CLASSES"] = (
         "rest_framework.renderers.JSONRenderer",)

@@ -85,8 +85,10 @@ if settings.SHOW_SWAGGER:
 api_urlpatterns += [
     # path("", include('djoser.urls')),
     # path("", include('djoser.urls.jwt')),
-    path("", include("accounts.urls")),
-    path("", include("keeper.api.v1.urls"))
+    # path("", include("accounts.urls")),
+    path("", include("keeper.api.v1.urls")),
+    path('', include('dj_rest_auth.urls')),
+    path('registration/', include('dj_rest_auth.registration.urls'))
 ]
 
 # list your api urls here

@@ -7,7 +7,8 @@ djangorestframework
 python-decouple
 
 # third party modules
-markdown       
+dj-rest-auth[with_social]
+markdown
 django-filter  
 drf-yasg[validation]
 djangorestframework-simplejwt
