@@ -51,17 +51,17 @@ INSTALLED_APPS = [
     "django.contrib.sitemaps",
     "rest_framework",
     "rest_framework.authtoken",
-    'dj_rest_auth',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'dj_rest_auth.registration',
+    "accounts",
+    "dj_rest_auth",
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "dj_rest_auth.registration",
     # "djoser",
     "django_filters",
     "drf_yasg",
     "corsheaders",
-    # "accounts",
-    "keeper"
+    "keeper",
 ]
 
 SITE_ID = config("SITE_ID", cast=int, default=1)
@@ -76,7 +76,6 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
-
 
 
 ROOT_URLCONF = "core.urls"
@@ -188,7 +187,7 @@ MESSAGE_TAGS = {
 
 
 # Email Configurations for production and development
-if DEBUG:    
+if DEBUG:
     EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
     EMAIL_USE_TLS = False
     EMAIL_HOST = "smtp4dev"
@@ -205,8 +204,7 @@ else:
     EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD", default="password")
     EMAIL_USE_SSL = config("EMAIL_USE_SSL", cast=bool, default=True)
     EMAIL_USE_TLS = config("EMAIL_USE_TLS", cast=bool, default=False)
-    DEFAULT_FROM_EMAIL = config(
-        "DEFAULT_FROM_EMAIL", default="infor@example.com")
+    DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL", default="infor@example.com")
 
 
 # security configs for production
@@ -238,17 +236,21 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.TokenAuthentication",
         "rest_framework.authentication.BasicAuthentication",
         "rest_framework.authentication.SessionAuthentication",
-        'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
+        "dj_rest_auth.jwt_auth.JWTCookieAuthentication",
     ],
 }
 
 REST_AUTH = {
-    'USE_JWT': True,
+    "USE_JWT": True,
+    "REGISTER_SERIALIZER": "accounts.serializers.CustomRegisterSerializer",
 }
+
+AUTH_USER_MODEL = "accounts.User"
 
 if config("DISABLE_BROWSEABLE_API", cast=bool, default=False):
     REST_FRAMEWORK["DEFAULT_RENDERER_CLASSES"] = (
-        "rest_framework.renderers.JSONRenderer",)
+        "rest_framework.renderers.JSONRenderer",
+    )
 
 
 # cors headers config
@@ -278,7 +280,7 @@ SIMPLE_JWT = {
     "ROTATE_REFRESH_TOKENS": False,
     "BLACKLIST_AFTER_ROTATION": False,
     "UPDATE_LAST_LOGIN": False,
-    'AUTH_HEADER_TYPES': ('JWT',),
+    "AUTH_HEADER_TYPES": ("JWT",),
 }
 
 
@@ -319,6 +321,9 @@ if SHOW_DEBUGGER_TOOLBAR:
         "debug_toolbar.middleware.DebugToolbarMiddleware",
     ]
     import socket  # only if you haven't already imported this
+
     hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
-    INTERNAL_IPS = [ip[: ip.rfind(".")] + ".1" for ip in ips] + ["127.0.0.1", "10.0.2.2"]
-    
+    INTERNAL_IPS = [ip[: ip.rfind(".")] + ".1" for ip in ips] + [
+        "127.0.0.1",
+        "10.0.2.2",
+    ]
