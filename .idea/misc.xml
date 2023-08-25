@@ -5,5 +5,5 @@
     <option name="enabledOnSave" value="true" />
     <option name="sdkUUID" value="a9e8f5c1-1597-4a90-8d39-5c5b047502e0" />
   </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.11 (translate-keeper)" project-jdk-type="Python SDK" />
+  <component name="ProjectRootManager" version="2" project-jdk-name="Remote Python 3.9.17 Docker Compose (backend)" project-jdk-type="Python SDK" />
 </project>
