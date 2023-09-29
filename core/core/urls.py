@@ -20,13 +20,11 @@ from configs.swagger import swagger_urlpatterns
 
 apps_urlpatterns = [
     path("keeper/", include("keeper.api.v1.urls")),
-    path("account/", include("dj_rest_auth.urls")),
-    path("account/register/", include("dj_rest_auth.registration.urls")),
 ]
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path('api/v1/', include(apps_urlpatterns))
+    path("api/v1/", include(apps_urlpatterns)),
 ]
 
 if settings.DEBUG:

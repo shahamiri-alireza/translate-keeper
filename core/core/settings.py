@@ -44,11 +44,6 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework.authtoken",
     "accounts",
-    "dj_rest_auth",
-    "allauth",
-    "allauth.account",
-    "allauth.socialaccount",
-    "dj_rest_auth.registration",
     "django_filters",
     "drf_yasg",
     "corsheaders",
@@ -136,15 +131,6 @@ REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.AllowAny",
     ],
-    "DEFAULT_AUTHENTICATION_CLASSES": [
-        "dj_rest_auth.jwt_auth.JWTCookieAuthentication",
-    ],
-}
-
-REST_AUTH = {
-    "USE_JWT": True,
-    "JWT_AUTH_HTTPONLY": False,
-    "REGISTER_SERIALIZER": "accounts.serializers.CustomRegisterSerializer",
 }
 
 AUTH_USER_MODEL = "accounts.User"
@@ -188,7 +174,7 @@ SWAGGER_SETTINGS = {
 }
 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(days=7),
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=2),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
     "ROTATE_REFRESH_TOKENS": False,
     "BLACKLIST_AFTER_ROTATION": False,
