@@ -20,6 +20,7 @@ from configs.swagger import swagger_urlpatterns
 
 apps_urlpatterns = [
     path("keeper/", include("keeper.api.v1.urls")),
+    path("", include("accounts.urls")),
 ]
 
 urlpatterns = [

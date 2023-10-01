@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework.authtoken",
     "accounts",
+    "djoser",
     "django_filters",
     "drf_yasg",
     "corsheaders",
@@ -134,6 +135,7 @@ REST_FRAMEWORK = {
 }
 
 AUTH_USER_MODEL = "accounts.User"
+AUTH_PROFILE_MODULE = "accounts.User"
 
 
 LOGGING = {
