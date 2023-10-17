@@ -245,7 +245,7 @@ AUTH_USER_MODEL = 'identity.User'
 
 # DRF spectacular
 SPECTACULAR_SETTINGS = {
-    'TITLE': 'Django-DRF-Clean-Architecture-Base',
+    'TITLE': 'Translate-Keeper',
     'DESCRIPTION': 'Lorem',
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
