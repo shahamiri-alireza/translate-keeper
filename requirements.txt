@@ -16,6 +16,7 @@ django-cors-headers
 django-csp
 django-robots
 django-debug-toolbar
+djangorestframework-camel-case
 
 # deployment module
 gunicorn
