@@ -7,7 +7,8 @@ from .serializers import (
     ProfileSerializer,
     RegisterSerializer,
 )
-from accounts.models import Profile
+from accounts.models import Profile, User
+from rest_framework_simplejwt.tokens import RefreshToken
 
 
 class RegisterApiView(generics.GenericAPIView):
@@ -24,8 +25,19 @@ class RegisterApiView(generics.GenericAPIView):
 
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            user = User.objects.get(email=serializer.data.get("email"))
+            token = self.get_tokens_for_user(user)
+            return Response(data={"data": token}, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    @staticmethod
+    def get_tokens_for_user(user):
+        refresh = RefreshToken.for_user(user)
+
+        return {
+            "refresh": str(refresh),
+            "access": str(refresh.access_token),
+        }
 
 
 class ProfileApiView(generics.RetrieveUpdateAPIView):
