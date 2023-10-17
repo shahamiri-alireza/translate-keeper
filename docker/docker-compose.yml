@@ -1,0 +1,124 @@
+version: "3.9"
+name: django-drf-clean-architecture-base
+services:
+
+  redis:
+    container_name: redis
+    image: redis
+    restart: always
+    ports:
+      - "6379:6379"
+    command: redis-server --save 60 1 --loglevel warning
+
+  seq:
+    image: datalust/seq:latest
+    container_name: seq
+    restart: always
+    ports:
+      - "5341:80"
+    environment:
+      - ACCEPT_EULA=Y
+      - SEQ_LICENSE_KEY=your-license-key-here
+    volumes:
+      - seq-data:/data
+
+  db:
+    container_name: db
+    image: postgres:alpine
+    restart: always
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    env_file:
+      - ../envs/dev/db/.env
+    ports:
+      - ${POSTGRES_PORT:-5432}:${POSTGRES_PORT:-5432}
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB" ]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+
+  backend:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile-dev
+    container_name: backend
+    restart: always
+    command: sh -c "python3 manage.py makemigrations --noinput && python3 manage.py migrate --noinput && python3 manage.py init_admin && python3 manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - ../src:/app
+    depends_on:
+      db:
+        condition: service_healthy
+      seq:
+        condition: service_started
+      redis:
+        condition: service_started
+    ports:
+      - "8000:8000"
+      - "5678:5678"
+    env_file:
+      - ../envs/dev/backend/.env
+
+
+  worker:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile-dev
+    container_name: worker
+    command: celery -A infrastructure.celery.celery:app worker --loglevel=info
+    restart: always
+    volumes:
+      - ../src:/app
+    env_file:
+      - ../envs/dev/backend/.env
+    depends_on:
+      - backend
+  
+  beat:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile-dev
+    container_name: beat
+    command: celery -A infrastructure.celery.celery:app beat --loglevel=info
+    restart: always
+    volumes:
+      - ../src:/app
+    env_file:
+      - ../envs/dev/backend/.env
+    depends_on:
+      - worker
+
+  locust:
+    image: locustio/locust
+    ports:
+      - "8089:8089"
+    volumes:
+      - ../src/infrastructure/locust:/mnt/locust
+    command: -f /mnt/locust/locustfile.py --master -H http://backend:8000
+  
+  locustworker:
+    image: locustio/locust
+    volumes:
+      - ../src/infrastructure/locust:/mnt/locust
+    command: -f /mnt/locust/locustfile.py --worker --master-host locust
+
+  # smtp4dev:
+  #   image: rnwood/smtp4dev:v3
+  #   restart: always
+  #   ports:
+  #     # Change the number before : to the port the web interface should be accessible on
+  #     - '5000:80'
+  #     # Change the number before : to the port the SMTP server should be accessible on
+  #     - '25:25'
+  #     # Change the number before : to the port the IMAP server should be accessible on
+  #     - '143:143'
+  #   volumes:
+  #       - smtp4dev-data:/smtp4dev
+  #   environment:
+  #     - ServerOptions__HostName=smtp4dev
+
+volumes:
+  seq-data:
+  #  smtp4dev-data:
+  postgres_data:
