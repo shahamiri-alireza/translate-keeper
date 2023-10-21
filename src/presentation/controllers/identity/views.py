@@ -5,15 +5,18 @@ from rest_framework_simplejwt.views import TokenRefreshView, TokenObtainPairView
 from rest_framework import status
 from django.contrib.auth import get_user_model
 from djoser.views import UserViewSet
+from rest_framework.viewsets import ViewSet
 
+from application.permissions.permissions import CurrentUserOrAdmin, IsAuthenticated
 from infrastructure.commands.identity.user import UserCommand
+from infrastructure.commands.identity.profile import ProfileCommand
+from infrastructure.serializers.identity.serializers import ProfileModelSerializer
 from infrastructure.exceptions.exceptions import UserIsNotActiveException, EntityNotFoundException
 from infrastructure.services.token import TokenService
 
 User = get_user_model()
 
 class AuthenticationViewSet(UserViewSet):
-    
     def list(self, request, *args, **kwargs):
         queryset = User.objects.filter(Q(is_hidden=False))
 
@@ -75,3 +78,26 @@ class CustomTokenRefreshView(TokenRefreshView):
             return super().post(request, *args, **kwargs)
         except User.DoesNotExist:
             raise EntityNotFoundException(message='User Not Found!')
+
+
+class ProfileViewSet(ViewSet):
+    permission_classes = (IsAuthenticated,CurrentUserOrAdmin,)
+
+    def retrieve(self, request, *args, **kwargs):
+
+        command = ProfileCommand()
+        response = command.retrieve(request.user.pk)
+
+        return Response(data={'data': response}, status=status.HTTP_200_OK)
+
+
+    def partial_update(self, request, *args, **kwargs):
+
+        serializer = ProfileModelSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        command = ProfileCommand()
+        profile = command.retrieve(request.user.pk)
+        response = command.partial_update(pk=profile.get("id"), data=request.data)
+
+        return Response(data={'data': response}, status=status.HTTP_200_OK)
