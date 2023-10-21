@@ -3,7 +3,7 @@ from django.core import exceptions as django_exceptions
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer as JWTTokenObtainPairSerializer
 from rest_framework.serializers import ModelSerializer, Serializer, CharField, EmailField
 
-from domain.apps.identity.models import User, UserBan, IPBan
+from domain.apps.identity.models import User, UserBan, IPBan, Profile
 from infrastructure.exceptions.exceptions import InvalidTokenException, InvalidIdException, ValidationException, PasswordMissmatchException
 from infrastructure.exceptions.exceptions import EntityNotFoundException
 
@@ -11,8 +11,8 @@ class UserModelSerializer(ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['id', 'username', 'email', 'date_joined', 'is_active', 'is_verified', 'is_superuser', 'is_staff', 'is_hidden', 'created_date']
-        read_only_fields = ['id', 'date_joined', 'is_active', 'is_verified', 'is_superuser', 'is_staff', 'is_hidden', 'created_date']
+        fields = ['id', 'username', 'email', 'date_joined', 'is_active', 'is_verified']
+        read_only_fields = ['id', 'date_joined', 'is_active', 'is_verified']
 
 
 class UserBanModelSerializer(ModelSerializer):
@@ -109,3 +109,11 @@ class UserRegisterSerializer(Serializer):
     username = CharField(max_length=255)
     email = EmailField(max_length=255, allow_blank=True)
     password = CharField()
+
+
+class ProfileModelSerializer(ModelSerializer):
+    user = UserModelSerializer(read_only=True)
+    class Meta:
+        model = Profile
+        fields = ['id', 'first_name', 'last_name', 'user']
+        read_only_fields = ['user']
