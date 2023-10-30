@@ -1,0 +1,59 @@
+English Name,Native Name,Abbreviation,RTL
+Albanian,Shqip,SQ,false
+Arabic,العربية (Al-ʿarabīyah),AR,true
+Azerbaijani,آذربایجان دیلی (Azərbaycan dili),AZ,false
+Bengali,বাংলা (Bangla),BN,false
+Bosnian,Bosanski,BS,false
+Bulgarian,Български (Bălgarski),BG,false
+Chinese,中文 (Zhōngwén),ZH,false
+Croatian,Hrvatski,HR,false
+Czech,Čeština,CS,false
+Danish,Dansk,DA,false
+Dutch,Nederlands,NL,false
+English,-,EN,false
+Estonian,Eesti keel,ET,false
+Finnish,Suomi,FI,false
+French,Français,FR,false
+Georgian,ქართული (Kartuli),KA,false
+German,Deutsch,DE,false
+Greek,Ελληνικά (Elliniká),EL,false
+Hebrew,עִבְרִית (Ivrit),HE,true
+Hindi,हिन्दी (Hindī),HI,false
+Hungarian,Magyar,HU,false
+Indonesian,Bahasa Indonesia,ID,false
+Italian,Italiano,IT,false
+Japanese,日本語 (Nihongo),JA,false
+Kazakh,қазақ тілі (Qazaq tili),KK,false
+Khmer,ភាសាខ្មែរ (Phéasa Khmae),KM,false
+Korean,한국어 (Hangugeo),KO,false
+Kurdish,Kurdî, Kurdish (Kurdi),KU,false
+Lao,ພາສາລາວ (Phasa Lao),LO,false
+Latvian,Latviešu valoda,LV,false
+Lithuanian,Lietuvių,LT,false
+Macedonian,Македонски (Makedonski),MK,false
+Malay,Bahasa Malaysia,MS,false
+Malayalam,മലയാളം (Malayāḷam),ML,false
+Mongolian,Монгол хэл (Mongol khel),MN,false
+Nepali,नेपाली (Nepālī),NE,false
+Norwegian,Norsk,NO,false
+Persian,فارسی (Fārsi),FA,true
+Polish,Polski,PL,false
+Portuguese,Português,PT,false
+Romanian,Română,RO,false
+Russian,Русский (Russkiy),RU,false
+Serbian,Српски (Srpski),SR,false
+Sinhala,සිංහල (Siṁhala),SI,false
+Slovak,Slovenčina,SK,false
+Slovenian,Slovenščina,SL,false
+Spanish,Español,ES,false
+Swahili,Kiswahili,SW,false
+Swedish,Svenska,SV,false
+Tajik,тоҷикӣ (Tojikī),TG,false
+Tamil,தமிழ் (Tamiḻ),TA,false
+Thai,ไทย (Phasa Thai),TH,false
+Turkmen,Türkmen dili,TK,false
+Turkish,Türkçe,TR,false
+Ukrainian,Українська (Ukrayins'ka),UK,false
+Urdu,اردو (Urdu),UR,false
+Uzbek,O'zbek, U'zbekcha, Oʻzbekcha (Oʻzbek),UZ,false
+Vietnamese,Tiếng Việt,VI,false
