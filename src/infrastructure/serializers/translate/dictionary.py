@@ -60,3 +60,9 @@ class DictionaryModelSerializer(ModelSerializer):
         instance.language.add(*validated_data["language"])
 
         return instance
+
+
+class DictionaryWithoutLanguageSerializer(ModelSerializer):
+    class Meta:
+        model = Dictionary
+        fields = ("id", "name")
