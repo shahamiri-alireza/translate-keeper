@@ -3,7 +3,10 @@ from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
 
 from domain.apps.translate.models import Category, Dictionary
-from infrastructure.serializers.translate.dictionary import DictionaryWithoutLanguageSerializer
+from infrastructure.serializers.translate.dictionary import (
+    DictionaryWithoutLanguageSerializer,
+)
+
 
 class CategoryModelSerializer(ModelSerializer):
     dictionary = DictionaryWithoutLanguageSerializer()
@@ -44,3 +47,9 @@ class CategoryModelSerializer(ModelSerializer):
         instance.save()
 
         return instance
+
+
+class CategoryModelWithoutDictionarySerializer(ModelSerializer):
+    class Meta:
+        model = Category
+        exclude = ("dictionary", "created_date", "updated_date")
