@@ -2,11 +2,11 @@ from uuid import UUID
 
 from attrs import define
 from .dictionary import DictionaryDto
+from ..base import BaseDto
 
 
 @define
-class CategoryDto:
-    id: UUID
-    title: str
-    color: str
-    dictionary: DictionaryDto
+class CategoryDto(BaseDto):
+    # dictionary: DictionaryDto
+    title: str = ""
+    color: str = ""
