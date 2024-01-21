@@ -12,10 +12,11 @@ class BaseCommand(IBaseCommand):
     Dto: BaseDto
 
     def __init__(self):
-
         if not self.handler or not issubclass(self.handler, BaseHandler):
-            raise NotImplementedError('BaseCommand must have a handler attribute and it must be a subclass of '
-                                      'BaseHandler')
+            raise NotImplementedError(
+                "BaseCommand must have a handler attribute and it must be a subclass of "
+                "BaseHandler"
+            )
 
     def cast_dto(self, data: dict) -> BaseDto:
         dto_service = DtoService()
@@ -32,7 +33,7 @@ class BaseCommand(IBaseCommand):
 
     def retrieve(self, pk=None, serialize=True):
         handler: BaseHandler = self.handler()
-        return handler.get(pk=pk, serialize=serialize)
+        return handler.get_by_pk(pk=pk, serialize=serialize)
 
     def update(self, data, serialize=True):
         dto = self.cast_dto(data)
