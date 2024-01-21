@@ -59,7 +59,7 @@ class WordModelSerializer(ModelSerializer):
         return data
 
     def create(self, validated_data):
-        translations_data = validated_data.pop("translations", [])
+        # translations_data = validated_data.pop("translations", [])
 
         word = Word.objects.create(
             dictionary=validated_data["dictionary"],
@@ -70,17 +70,17 @@ class WordModelSerializer(ModelSerializer):
 
         word.category.set(validated_data["category"])
 
-        for translation_data in translations_data:
-            Translation.objects.create(
-                word=word,
-                language_id=translation_data["language"]["id"],
-                translate=translation_data["translate"],
-            )
+        # for translation_data in translations_data:
+        #     Translation.objects.create(
+        #         word=word,
+        #         language_id=translation_data["language"]["id"],
+        #         translate=translation_data["translate"],
+        #     )
 
         return word
 
     def update(self, instance: Word, validated_data):
-        translations_data = validated_data.pop("translations", [])
+        # translations_data = validated_data.pop("translations", [])
 
         instance.title = validated_data["title"]
         instance.description = validated_data["description"]
@@ -89,12 +89,12 @@ class WordModelSerializer(ModelSerializer):
 
         Translation.objects.filter(word__id=instance.id).delete()
 
-        for translation_data in translations_data:
-            Translation.objects.create(
-                word=instance,
-                language_id=translation_data["language"]["id"],
-                translate=translation_data["translate"],
-            )
+        # for translation_data in translations_data:
+        #     Translation.objects.create(
+        #         word=instance,
+        #         language_id=translation_data["language"]["id"],
+        #         translate=translation_data["translate"],
+        #     )
 
         return instance
 
