@@ -1,8 +1,6 @@
-from uuid import UUID
-
 from attrs import define
 
-from typing import List
+from typing import List, Optional
 
 from .category import CategoryDto
 from .dictionary import DictionaryDto
@@ -13,19 +11,14 @@ from ..base import BaseDto
 
 @define
 class WordDto(BaseDto):
-    dictionary: DictionaryDto
-    title: str
-    description: str
-    category: List[CategoryDto]
+    dictionary: DictionaryDto = DictionaryDto()
+    title: str = ""
+    description: str = ""
+    category: List[CategoryDto] = []
 
 
 @define
-class TranslationDto:
-    word: WordDto
-    translate: str
+class TranslationDto(BaseDto):
     language: LanguageDto
-
-
-@define
-class WordWithTranslationDto(WordDto):
-    translations: List[TranslationDto]
+    word: WordDto = WordDto()
+    translate: str = ""

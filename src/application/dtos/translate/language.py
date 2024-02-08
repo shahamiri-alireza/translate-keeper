@@ -5,7 +5,7 @@ from attrs import define
 
 @define
 class LanguageDto:
-    id: str = ""
+    id: str
     name: str = ""
     native_name: str = ""
     abbreviation: str = ""

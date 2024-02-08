@@ -14,7 +14,6 @@ class TranslationModelSerializer(ModelSerializer):
         fields = ["id", "translate", "language"]
 
     def to_internal_value(self, data):
-        # Override to include 'id' field in validated data
         return data
 
     def validate(self, data):

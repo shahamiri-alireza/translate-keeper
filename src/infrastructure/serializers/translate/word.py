@@ -13,9 +13,7 @@ from infrastructure.serializers.translate.translation import TranslationModelSer
 
 
 class WordModelSerializer(ModelSerializer):
-    translations = TranslationModelSerializer(
-        many=True, read_only=True, source="translation_set"
-    )
+    translations = TranslationModelSerializer(many=True, read_only=True)
     dictionary = DictionaryWithoutLanguageSerializer()
     category = CategoryModelWithoutDictionarySerializer(many=True)
 
@@ -32,7 +30,6 @@ class WordModelSerializer(ModelSerializer):
         # exclude = ("created_date", "updated_date")
 
     def to_internal_value(self, data):
-        # Override to include 'id' field in validated data
         return data
 
     def validate(self, data):
@@ -59,45 +56,18 @@ class WordModelSerializer(ModelSerializer):
         return data
 
     def create(self, validated_data):
-        # translations_data = validated_data.pop("translations", [])
-
         word = Word.objects.create(
             dictionary=validated_data["dictionary"],
             title=validated_data["title"],
             description=validated_data["description"],
-            # category=validated_data["category"],
         )
 
         word.category.set(validated_data["category"])
-
-        # for translation_data in translations_data:
-        #     Translation.objects.create(
-        #         word=word,
-        #         language_id=translation_data["language"]["id"],
-        #         translate=translation_data["translate"],
-        #     )
-
         return word
 
     def update(self, instance: Word, validated_data):
-        # translations_data = validated_data.pop("translations", [])
-
         instance.title = validated_data["title"]
         instance.description = validated_data["description"]
         instance.category.set(validated_data["category"])
         instance.save()
-
-        Translation.objects.filter(word__id=instance.id).delete()
-
-        # for translation_data in translations_data:
-        #     Translation.objects.create(
-        #         word=instance,
-        #         language_id=translation_data["language"]["id"],
-        #         translate=translation_data["translate"],
-        #     )
-
         return instance
-
-    # def setTranslations(self, translations):
-    #     for translation in translations:
-    #         translation.
